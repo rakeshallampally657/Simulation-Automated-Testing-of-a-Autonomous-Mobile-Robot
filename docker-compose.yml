@@ -1,0 +1,38 @@
+version: '2'
+services:
+  iki-robot-sim:
+    image: 141.69.58.19:5000/stud-iki/ws18_raju_allampally_robot_test_sim:master_project_1
+    environment:
+      ROS_IP: 127.0.0.1
+      ROS_MASTER_URI: http://127.0.0.1:11311
+      WAIT_FOR_ROSCORE: 0
+      DISPLAY: :0
+      QT_X11_NO_MITSHM: '1'
+      PATH: /usr/local/nvidia/bin:${PATH}
+      LD_LIBRARY_PATH: /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+    privileged: true
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+
+    network_mode: host
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $HOME/.Xauthority:/root/.Xauthority
+      - $HOME/.gazebo:/root/.gazebo
+      - nvidia_driver_384.130:/usr/local/nvidia:ro
+
+
+    command: /bin/bash -c "
+             cd ~/catkin_ws/src/prj-iki-robotics/ros-jaco-arm/jaco_arm;
+             rm -r kinova_description;cd ~/catkin_ws/src/prj-iki-robotics/marvin;
+             rm -r marvin_bringup;rm -r marvin_navigation;cd ~/catkin_ws/src;
+             cd ~/catkin_ws;catkin_make;source devel/setup.bash;tail -f /dev/null"
+
+
+version: '2'
+volumes:
+  nvidia_driver_384.130:
+
+    external: true

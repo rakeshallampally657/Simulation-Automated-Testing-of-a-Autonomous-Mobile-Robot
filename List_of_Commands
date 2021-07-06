@@ -1,0 +1,98 @@
+#Only for Reference List of Commands at one place 
+
+#Marvin Automated Testing and Simulation (Gazebo)
+
+git clone git@fbe-gitlab.hs-weingarten.de:stud-iki/prj-master/ws18_raju_allampally_robot_test_sim.git
+
+Navigate to the Folder Containning Repository
+
+###To build and Run the docker image in the Container
+
+##docker remove the image
+
+docker rmi <imageid>
+
+##docker reomove all images
+docker image prune -a
+
+##docker remove all container
+docker container prune
+
+#To Stop any Exsting Docker container 
+docker stop <Container ID>
+
+Container ID = 51a935e987e4
+
+##if in same directory of dockerfile: command is
+
+docker build -t <image name> .
+
+####To Download existing image and run the Docker Compose
+And if you are on the current directory u are located
+
+### docker compose command
+
+docker-compose -f docker-compose.yml up
+
+#To Push the docker file into the registry server - http://141.69.58.19
+
+docker push <name of the build image with address to registry>
+
+http://141.69.58.19/repository/stud-iki/ws18_raju_allampally_robot_test_sim
+
+###Top open the bash shell in the docker container 
+
+docker exec -it docker_iki-robot-sim_1 bash
+
+docker exec -it ws18_raju_allampally_robot_test_sim_iki-robot-sim_1 bash
+
+####Remove the files from the docker image locally to avoid errors of same package
+	cd
+	cd catkin_ws/src/prj-iki-robotics/ros-jaco-arm/jaco_arm
+	rm -r kinova_description
+	cd
+	cd catkin_ws/src/prj-iki-robotics/marvin
+	rm -r marvin_bringup
+        rm -r marvin_navigation
+        cd
+        cd
+git clone https://github.com/ros-planning/navigation
+
+cd
+cd catkin_ws/src/prj-iki-robotics/prj-master/prj-master/ws18_raju_allampally_robot_test_sim
+
+
+####Roslaunch commands to Gazebo Marvin
+
+roslaunch marvin_gazebo marvin_world.launch
+
+roslaunch ira_laser_tools laserscan_multi_merger.launch
+
+
+roslaunch marvin_bringup kb_teleop.launch
+
+
+###To launch the navigation stack of the robot
+
+
+roslaunch marvin_navigation gmapping_sim.launch
+
+
+roslaunch marvin_navigation amcl_sim.launch
+
+roslaunch marvin_navigation move_base_sim.launch
+
+
+###To launch the moveit Stack of the Robot 
+
+source ~/catkin_ws/devel/setup.bash
+roslaunch marvin_moveit test_sim.launch
+
+
+##Other Commands
+
+source devel/setup.bash
+source ~/catkin_ws/devel/setup.bash
+roslaunch marvin_moveit test_sim.launch
+
+docker build -f ../Dockerfile  -t robo-sim .
