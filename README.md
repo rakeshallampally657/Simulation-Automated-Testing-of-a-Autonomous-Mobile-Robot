@@ -38,7 +38,5 @@ Dependencies for Docker :
 ## License
 To be determined.
 
-## Problems and solutions 
-Refer the below links for further detailed description.
-(https://fbe-gitlab.hs-weingarten.de/stud-iki/prj-master/ws18_raju_allampally_robot_test_sim/blob/master/docker/README.md)
+
 
